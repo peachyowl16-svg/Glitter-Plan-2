@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff8fbe">
+<link rel="manifest" href="manifest.json">
+<title>GlitterPlan 🎀</title>
+<style>
+:root{--pink:#ff78ad;--pink2:#ffd6e7;--cream:#fff9fc;--ink:#493847;--muted:#927d8b;--card:#fff;--line:#f3d9e5;--green:#75c99a;--purple:#a88bea}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(145deg,#fff7fb,#f8f2ff);font-family:-apple-system,BlinkMacSystemFont,"Avenir Next",sans-serif;color:var(--ink)}
+.app{max-width:680px;margin:auto;padding-bottom:90px}.top{padding:28px 20px 12px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:900;font-size:28px;letter-spacing:-1px}.brand span{color:var(--pink)}
+.date{font-size:13px;color:var(--muted);font-weight:700}.hero{margin:8px 16px 14px;padding:20px;border-radius:28px;background:linear-gradient(135deg,#ffd8e9,#f1ddff);box-shadow:0 10px 30px #d9b7ca55}
+.hero h1{margin:0 0 5px;font-size:24px}.hero p{margin:0;color:#765f70}.quote{margin-top:14px;background:#ffffffaa;padding:10px 12px;border-radius:15px;font-size:13px;font-weight:700}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:8px 12px 14px;position:sticky;top:0;background:#fff9fcdd;backdrop-filter:blur(12px);z-index:5}
+.tab{border:0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:9px 3px;color:var(--muted);font-size:11px;font-weight:800}.tab b{display:block;font-size:18px;margin-bottom:2px}.tab.active{background:var(--pink2);color:#a83e6e;border-color:#ffb2d0}
+.page{padding:0 16px}.card{background:var(--card);border:1px solid var(--line);border-radius:23px;padding:16px;margin:10px 0;box-shadow:0 7px 20px #cba7bb18}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section-title h2{font-size:17px;margin:0}.pill{border:0;background:#fff0f6;color:#b34673;border-radius:999px;padding:7px 10px;font-weight:800}
+.row{display:flex;gap:10px;align-items:center}.grow{flex:1}input,textarea,select{width:100%;border:1px solid var(--line);background:#fffafd;border-radius:14px;padding:12px;color:var(--ink);font:inherit;outline:none}textarea{min-height:180px;resize:vertical}
+.add{border:0;border-radius:14px;background:var(--pink);color:white;font-weight:900;padding:12px 15px;box-shadow:0 6px 15px #ff78ad44}.item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #f7e9ef}.item:last-child{border-bottom:0}.check{width:23px;height:23px;border-radius:8px;border:2px solid #efb3cb;background:#fff;display:grid;place-items:center;cursor:pointer}.check.done{background:var(--green);border-color:var(--green);color:#fff}.item.done .txt{text-decoration:line-through;color:#b6a5af}.del{border:0;background:transparent;color:#c7aeba;font-size:18px}
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.mood{border:1px solid var(--line);background:#fff;border-radius:18px;padding:10px 3px;font-size:25px}.mood small{display:block;font-size:10px;color:var(--muted);font-weight:700;margin-top:3px}
+.habits{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.habit-day{display:flex;gap:6px}.dot{width:26px;height:26px;border-radius:50%;border:1px solid #e9cad8;background:#fff}.dot.on{background:var(--pink);border-color:var(--pink)}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#fff6fa;border-radius:17px;padding:12px;text-align:center}.stat strong{display:block;font-size:22px}.stat span{font-size:11px;color:var(--muted);font-weight:700}
+.hidden{display:none}.small{font-size:12px;color:var(--muted)}.empty{text-align:center;padding:22px;color:var(--muted);font-size:13px}
+footer{text-align:center;color:#b09aa7;font-size:11px;padding:20px}
+@media(min-width:681px){body{padding:20px}.app{border-radius:30px;background:#fff9fcaa;min-height:90vh}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="brand">Glitter<span>Plan</span> 🎀</div><div class="date" id="date"></div></div>
+  <div class="hero"><h1 id="hello">Hey, bestie! ✨</h1><p>Make today a little more magical.</p><div class="quote" id="quote"></div></div>
+  <nav class="tabs">
+    <button class="tab active" data-page="today"><b>☀️</b>Today</button>
+    <button class="tab" data-page="plan"><b>🗓️</b>Plan</button>
+    <button class="tab" data-page="habits"><b>💗</b>Habits</button>
+    <button class="tab" data-page="journal"><b>📖</b>Journal</button>
+    <button class="tab" data-page="me"><b>✨</b>Me</button>
+  </nav>
+
+  <main class="page">
+    <section id="today">
+      <div class="card">
+        <div class="section-title"><h2>Today's vibe 🌷</h2><span class="pill" id="moodLabel">Pick one</span></div>
+        <div class="moods">
+          <button class="mood" data-mood="Amazing">🤩<small>Amazing</small></button>
+          <button class="mood" data-mood="Happy">🥰<small>Happy</small></button>
+          <button class="mood" data-mood="Okay">🙂<small>Okay</small></button>
+          <button class="mood" data-mood="Tired">😴<small>Tired</small></button>
+          <button class="mood" data-mood="Meh">🥲<small>Meh</small></button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-title"><h2>Today's to-do ✨</h2><span class="pill" id="progress">0/0</span></div>
+        <div class="row"><input id="taskInput" placeholder="Add something you want to do..."><button class="add" onclick="addTask()">Add</button></div>
+        <div id="taskList"></div>
+      </div>
+      <div class="card">
+        <div class="section-title"><h2>Little wins 🏆</h2></div>
+        <div class="statgrid"><div class="stat"><strong id="doneStat">0</strong><span>tasks done</span></div><div class="stat"><strong id="habitStat">0</strong><span>habits today</span></div><div class="stat"><strong id="streakStat">0</strong><span>day streak</span></div></div>
+      </div>
+    </section>
+
+    <section id="plan" class="hidden">
+      <div class="card"><div class="section-title"><h2>Plan something cute 🎀</h2></div>
+        <div class="row"><input id="eventInput" placeholder="e.g. Study, movie night, self-care..."><button class="add" onclick="addEvent()">Add</button></div>
+        <div id="eventList"></div>
+      </div>
+      <div class="card"><h2 style="font-size:17px">Brain dump 🧠</h2><textarea id="brain" placeholder="Anything on your mind..."></textarea></div>
+    </section>
+
+    <section id="habits" class="hidden">
+      <div class="card"><div class="section-title"><h2>Your habits 💗</h2><button class="pill" onclick="addHabit()">＋ Habit</button></div><div id="habitList"></div></div>
+      <div class="card"><h2 style="font-size:17px">Habit ideas ✨</h2><div class="small">💧 Drink water &nbsp; • &nbsp; 📚 Read &nbsp; • &nbsp; 🧘 Stretch &nbsp; • &nbsp; 🧹 Tidy room &nbsp; • &nbsp; 😴 Sleep routine</div></div>
+    </section>
+
+    <section id="journal" class="hidden">
+      <div class="card"><div class="section-title"><h2>Dear diary... 💌</h2><span class="small">Saved automatically</span></div><textarea id="journalText" placeholder="Write about your day, your feelings, your dreams..."></textarea></div>
+      <div class="card"><h2 style="font-size:17px">Gratitude 🌸</h2><textarea id="gratitude" style="min-height:120px" placeholder="Three little things you're grateful for..."></textarea></div>
+    </section>
+
+    <section id="me" class="hidden">
+      <div class="card"><div class="section-title"><h2>Your goals 🎯</h2><button class="pill" onclick="addGoal()">＋ Goal</button></div><div id="goalList"></div></div>
+      <div class="card"><h2 style="font-size:17px">Your space ✨</h2><p class="small">Everything in GlitterPlan is saved locally on this device. There are no subscriptions, ads, or in-app purchases in this version.</p><button class="pill" onclick="resetData()">Reset my data</button></div>
+    </section>
+  </main>
+  <footer>Made with 💗 for your main-character era.</footer>
+</div>
+<script>
+const key='glitterplan_v1';
+let db=JSON.parse(localStorage.getItem(key)||'{"tasks":[],"events":[],"habits":["Drink water 💧","Move your body 🩷","Tidy for 5 min ✨"],"habitDone":{},"goals":[],"mood":"","brain":"","journal":"","gratitude":""}');
+const today=()=>new Date().toISOString().slice(0,10);
+function save(){localStorage.setItem(key,JSON.stringify(db))}
+const quotes=["You don't have to be perfect to have a beautiful day. 🌷","Tiny steps still count. ✨","Protect your peace and romanticize your life. 🎀","You are allowed to start over today. 💗","Main character energy: activated. 🌸"];
+document.getElementById('date').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+document.getElementById('quote').textContent=quotes[new Date().getDate()%quotes.length];
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));document.getElementById(b.dataset.page).classList.remove('hidden')});
+document.querySelectorAll('.mood').forEach(b=>b.onclick=()=>{db.mood=b.dataset.mood;save();render()});
+function addTask(){let v=document.getElementById('taskInput').value.trim();if(!v)return;db.tasks.push({id:Date.now(),text:v,done:false,date:today()});document.getElementById('taskInput').value='';save();render()}
+function toggleTask(id){let t=db.tasks.find(x=>x.id===id);t.done=!t.done;save();render()}
+function delTask(id){db.tasks=db.tasks.filter(x=>x.id!==id);save();render()}
+function addEvent(){let v=document.getElementById('eventInput').value.trim();if(!v)return;db.events.push({id:Date.now(),text:v,date:today()});document.getElementById('eventInput').value='';save();render()}
+function delEvent(id){db.events=db.events.filter(x=>x.id!==id);save();render()}
+function addHabit(){let v=prompt("Name your new habit 💗");if(v&&v.trim()){db.habits.push(v.trim());save();render()}}
+function toggleHabit(i){let d=db.habitDone[today()]||[];d=d.includes(i)?d.filter(x=>x!==i):[...d,i];db.habitDone[today()]=d;save();render()}
+function addGoal(){let v=prompt("What's your goal? 🎯");if(v&&v.trim()){db.goals.push({id:Date.now(),text:v.trim(),done:false});save();render()}}
+function toggleGoal(id){let g=db.goals.find(x=>x.id===id);g.done=!g.done;save();render()}
+function resetData(){if(confirm("Reset all GlitterPlan data on this device?")){localStorage.removeItem(key);location.reload()}}
+function bindText(id,field){let e=document.getElementById(id);e.value=db[field]||'';e.oninput=()=>{db[field]=e.value;save()}}
+function render(){
+ let tasks=db.tasks.filter(t=>t.date===today()),done=tasks.filter(t=>t.done).length;
+ document.getElementById('progress').textContent=`${done}/${tasks.length}`;document.getElementById('doneStat').textContent=done;
+ document.getElementById('moodLabel').textContent=db.mood||'Pick one';
+ document.getElementById('taskList').innerHTML=tasks.length?tasks.map(t=>`<div class="item ${t.done?'done':''}"><button class="check ${t.done?'done':''}" onclick="toggleTask(${t.id})">${t.done?'✓':''}</button><div class="txt grow">${esc(t.text)}</div><button class="del" onclick="delTask(${t.id})">×</button></div>`).join(''):'<div class="empty">Your list is clear. Add a little goal above! 🌸</div>';
+ document.getElementById('eventList').innerHTML=db.events.filter(e=>e.date===today()).map(e=>`<div class="item"><span>🎀</span><div class="txt grow">${esc(e.text)}</div><button class="del" onclick="delEvent(${e.id})">×</button></div>`).join('')||'<div class="empty">No plans yet — keep it cute and flexible. ✨</div>';
+ let hd=db.habitDone[today()]||[];document.getElementById('habitStat').textContent=hd.length;
+ document.getElementById('habitList').innerHTML=db.habits.map((h,i)=>`<div class="item"><div class="grow"><b>${esc(h)}</b></div><button class="dot ${hd.includes(i)?'on':''}" onclick="toggleHabit(${i})">${hd.includes(i)?'✓':''}</button></div>`).join('');
+ document.getElementById('goalList').innerHTML=db.goals.length?db.goals.map(g=>`<div class="item ${g.done?'done':''}"><button class="check ${g.done?'done':''}" onclick="toggleGoal(${g.id})">${g.done?'✓':''}</button><div class="txt grow">${esc(g.text)}</div></div>`).join(''):'<div class="empty">Add a goal for future-you. 🎯</div>';
+ bindText('brain','brain');bindText('journalText','journal');bindText('gratitude','gratitude');
+}
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+render();
+</script>
+</body></html>
